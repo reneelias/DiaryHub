@@ -2,18 +2,22 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
-const Background = styled.body`
+const Background = styled.div`
   background: #02AAB0;
   background: -webkit-linear-gradient(to right, #00CDAC, #02AAB0);
   background: linear-gradient(to right, #00CDAC, #02AAB0);
   position: fixed;
   width: 100%;
+  height: 100vh;
 `
 
 const Container = styled.div`
-  width: 531px;
-  margin: 0 auto;
-  margin-top: 10%;
+  width: 446px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 `
 
 const Title = styled.h1`
@@ -54,8 +58,9 @@ class Landing extends Component {
       <Background>
         <Container>
           <Title>Fitness Hub</Title>
-          <Description>Reach your fitness goals with the help of Fitness Hub.</Description>
-          <Description>Manage and log your foods, workouts, and measurements.</Description>
+          <Description>Reach your fitness goals with the help of</Description>
+          <Description>Fitness Hub. Manage and log your foods,</Description>
+          <Description>workouts, and measurements.</Description>
           <div>
             <Links style={{marginRight: '40px'}}>
               <StyledLink to="/login"><h1 style={{color: 'white', textAlign: 'center'}}>Log In</h1></StyledLink>
