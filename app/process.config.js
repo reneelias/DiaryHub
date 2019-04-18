@@ -7,7 +7,7 @@ module.exports = {
     },
     {
       name: 'daily',
-      script: './api/endpoints/daily.js',
+      script: './api/services/daily.js',
       watch: true,
     },
   ],
