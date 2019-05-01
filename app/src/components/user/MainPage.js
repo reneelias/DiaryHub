@@ -11,13 +11,53 @@ const Background = styled.div`
   height: 100vh;
 `
 
+const Container = styled.div`
+  padding: 50px;
+  border-radius: 10px;
+  width: 90%;
+  min-width: 500px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+`
+
 class MainPage extends Component {
   render() {
     return (
-      <Background>
-          <Nav/>
+        <Background>
+            <Nav/>
             
-      </Background>
+        <Container>
+            <div class="center aligned two column stackable ui grid">
+                <div class="column">
+                <div class="ui segment">
+                <div class="ui vertical fluid menu">
+                    <div class="header item">Daily Summary</div>
+                </div>
+                    <p>1. Get from DB.</p>
+                    <p>2.</p>
+                    <p>3.</p>
+                </div>
+                </div>
+
+                <div class="column">
+                <div class="ui segment">
+                <div class="ui vertical fluid menu">
+                    <div class="header item">Workout for Today</div>
+                </div>
+                    <p>1. Get from DB</p>
+                    <p>2.</p>
+                    <p>3.</p>
+                </div>
+                </div>
+            </div>
+        </Container>
+                   
+        </Background>
+
+      
     );
   }
 }
