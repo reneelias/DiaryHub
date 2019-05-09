@@ -1,78 +1,78 @@
 import React, { Component } from 'react'
+import { Button } from 'semantic-ui-react'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
-
-const Background = styled.div`
-  background: #02AAB0;
-  background: -webkit-linear-gradient(to right, #00CDAC, #02AAB0);
-  background: linear-gradient(to right, #00CDAC, #02AAB0);
-  position: fixed;
-  width: 100%;
-  height: 100vh;
-`
 
 const Container = styled.div`
-  width: 446px;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+  background-color: #24292e;
+  width: 100%;
+  height: 75vh;
+`
+
+const Nav = styled.div`
+  padding-top: 20px;
+  margin: 0 auto;
+  max-width: 1000px;
+  text-align: right;
+`
+
+const Wrapper = styled.div`
+  width: 490px;
+  margin: 0 auto;
+  margin-top: 100px;
 `
 
 const Title = styled.h1`
   color: white;
   font-size: 6em;
+  text-align: center;
 `
 
-const Description = styled.p`
+const Description = styled.div`
   color: white;
-  font-size: 1.5em;
-  margin: 0;
+  font-size: 2em;
+  padding-bottom: 30px;
 `
 
-const Links = styled.div`
-  margin-top: 60px;
-  border: 3px solid white;
-  border-radius: 10px;
-  width: 200px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  display: inline-block;
-  :hover {
-    background-color: #02AAB0;
-  }
+const Footer = styled.div`
+  background-color: #ededed;
+  padding: 20px;
 `
 
-const StyledLink = styled(Link)`
-  color: black;
-  :hover {
-    color:black;
-    text-decoration: none;
-  }
+const Disclaimer = styled.h1`
+  text-align: center;
+  font-size: 25px;
 `
 
-class Landing extends Component {
+const Para = styled.p`
+  font-size: 20px;
+  text-align: center;
+  width: 50%
+  margin: 0 auto;
+`
+
+export default class Landing extends Component {
   render() {
     return (
-      <Background>
+      <>
         <Container>
-          <Title>Fitness Hub</Title>
-          <Description>Reach your fitness goals with the help of</Description>
-          <Description>Fitness Hub. Manage and log your foods,</Description>
-          <Description>workouts, and measurements.</Description>
-          <div>
-            <Links style={{marginRight: '40px'}}>
-              <StyledLink to="/login"><h1 style={{color: 'white', textAlign: 'center'}}>Log In</h1></StyledLink>
-            </Links>
-            <Links>
-              <StyledLink to="/register"><h1 style={{color: 'white', textAlign: 'center'}}>Sign Up</h1></StyledLink>
-            </Links>
-          </div>
+          <Nav>
+            <Button style={{margin: '5px'}} onClick={() => {this.props.history.push('/login')}} inverted>Log In</Button>
+            <Button style={{margin: '5px'}} onClick={() => {this.props.history.push('/register')}} inverted>Sign Up</Button>
+          </Nav>
+          <Wrapper>
+            <Title>Diary Hub</Title>
+            <Description>Reach your fitness goals with the help of</Description>
+            <Description>Diary Hub. Manage and log your foods,</Description>
+            <Description>workouts, and measurements</Description>
+          </Wrapper>
         </Container>
-      </Background>
+        <Footer>
+          <Disclaimer>DISCLAIMER</Disclaimer>
+          <Para>Diary Hub is a website <b>NOT</b> intended for commercial purposes. We do not ask for any type of payment in any shape or form. 
+            This website is for educational purposes only and only stimulates a website where users can log their foods and workouts. 
+            The information on this website is fictional. Any similarities are completely coincidental.</Para>
+        </Footer>
+      </>
     )
   }
 }
-
-export default Landing

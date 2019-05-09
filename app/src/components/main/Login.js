@@ -1,67 +1,43 @@
 import React, { Component } from 'react'
-import { Form, Button } from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
+import NavBar from './NavBar'
 import styled from 'styled-components'
 
-const Background = styled.div`
-  background: #02AAB0;
-  background: -webkit-linear-gradient(to right, #00CDAC, #02AAB0);
-  background: linear-gradient(to right, #00CDAC, #02AAB0);
-  position: fixed;
-  width: 100%;
-  height: 100vh;
-`
-
 const Container = styled.div`
-  padding: 50px;
-  background-color: white;
-  border: 1px solid white;
-  border-radius: 10px;
-  box-shadow: 2px 2px 2px grey;
-  width: 35%;
-  min-width: 500px;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+  width: 630px;
+  margin: 0 auto;
+  margin-top: 100px;
 `
 
-const Title = styled.h1`
-  text-align: center;
-  margin-bottom: 30px;
+const StyledLabel = styled.label`
+  font-weight: bold;
+  display: block;
 `
 
-const Style = {
-  marginBottom: '20px'
-}
-
-class Login extends Component {
-
-  handleSubmit = e => {
-    e.preventDefault()
-    console.log('login')
-  }
-
+export default class Login extends Component {
   render() {
     return (
-      <Background>
+      <>
+      <NavBar />
       <Container>
-        <Title>Log In</Title>
-        <Form onSubmit={this.handleSubmit}>
-          <Form.Field>
-            <label style={Style}><h3>E-mail</h3></label>
-            <input style={Style} placeholder='E-mail'/>
-          </Form.Field>
-          <Form.Field>
-            <label style={Style}><h3>Password</h3></label>
-            <input style={Style} type='password' placeholder='Password'/>
-          </Form.Field>
-          <Button type='submit' color='black' size='big'>Log In</Button>
-        </Form>
+      <Grid>
+        <Grid.Column style={{ width: '630px' }}>
+          <Header as='h2' color='black' textAlign='center'>Log-in to your account</Header>
+          <Form size='large'>
+            <Segment stacked>
+              <StyledLabel>Username</StyledLabel>
+              <Form.Input fluid icon='user' iconPosition='left' placeholder='Username' />
+              <StyledLabel>Password</StyledLabel>
+              <Form.Input fluid icon='lock' iconPosition='left' placeholder='Password' type='password' />
+              <Button color='black' fluid size='large'>Login</Button>
+            </Segment>
+          </Form>
+          <Message style={{textAlign: 'right'}}>New to us? <Link to="/register" style={{ paddingLeft: '5px'}}>Create an account</Link></Message>
+        </Grid.Column>
+      </Grid>
       </Container>
-      </Background>
+      </>
     )
   }
 }
-
-export default Login
