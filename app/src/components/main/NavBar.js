@@ -72,7 +72,7 @@ class NavBar extends Component {
         </LeftColumn>
         <RightColumn>
           <List>
-            <Button><Linker to="/">Add Food</Linker></Button>
+            <Button><Linker to="/addfood">Add Food</Linker></Button>
             <Button><Linker to="/">Workouts</Linker></Button>
             <Button><Linker to="/">Recipes</Linker></Button>
             <Button><Linker to="/">Check In</Linker></Button>

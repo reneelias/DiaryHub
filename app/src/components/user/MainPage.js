@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import Nav from '../../routes/NavRoutes';
+// import Nav from '../../routes/NavRoutes';
+import NavBar from '../main/NavBar'
 
 const Background = styled.div`
   background: #02AAB0;
@@ -27,7 +28,7 @@ class MainPage extends Component {
   render() {
     return (
         <Background>
-            <Nav/>
+            <NavBar />
             
         <Container>
             <div class="center aligned two column stackable ui grid">

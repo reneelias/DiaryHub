@@ -4,6 +4,7 @@ import Landing from '../components/main/Landing'
 import Login from '../components/main/Login'
 import Register from '../components/main/Register'
 import Main from '../components/user/Main'
+import AddFood from '../components/main/AddFood';
 
 const MainRoutes = () => (
     <Router>
@@ -12,6 +13,7 @@ const MainRoutes = () => (
           <Route exact path="/login" component={Login}/>
           <Route exact path="/register" component={Register}/>
           <Route exact path="/main" component={Main}/>
+          <Route exact path="/addfood" component={AddFood}/>
         </>
     </Router>
 )
