@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react'
+import { Button, Form, Grid, Header, Segment, Table } from 'semantic-ui-react'
 import { Redirect } from 'react-router-dom'
 import NavBar from '../main/NavBar'
 import styled from 'styled-components'
@@ -16,15 +16,36 @@ const StyledLabel = styled.label`
   display: block;
 `
 
+const Wrapper = styled.div`
+  width: 630px;
+  margin: 0 auto;
+  margin-top: 50px;
+`
+
 class AddFood extends Component {
 
   state ={
     user_id: localStorage.getItem('user_id'),
     isAuth: localStorage.getItem('isAuth'),
+    user_details: [],
     calories: '',
     carbs: '',
     proteins: '',
     fats: '',
+  }
+
+  componentDidMount() {
+    this.getUserDetails()
+  }
+
+  getUserDetails = () => {
+    axios.get(`/food/${this.state.user_id}`)
+    .then(res => {
+      this.setState({ user_details: res.data })
+    })
+    .catch(() => {
+      console.log('error getting user details')
+    })
   }
 
   addFood = e => {
@@ -39,6 +60,7 @@ class AddFood extends Component {
         fats,
       })
         .then(() => {
+          this.getUserDetails()
           this.setState({
             calories: '',
             carbs: '',
@@ -84,6 +106,7 @@ class AddFood extends Component {
   }
 
   render() {
+    const { user_details } = this.state
 
     if (this.state.isAuth !== 'true') {
       return <Redirect to="/" />
@@ -102,7 +125,7 @@ class AddFood extends Component {
           <Form.Input 
             fluid icon='hotjar' 
             iconPosition='left' 
-            placeholder='calories'
+            placeholder='kcal'
             maxLength="5" 
             value={this.state.calories}
             onChange={(e) => {this.changeCalories(e)}}
@@ -140,6 +163,27 @@ class AddFood extends Component {
         </Grid.Column>
       </Grid>
       </Container>
+      <Wrapper>
+      <h1 style={{textAlign: 'center'}}>Totals</h1>
+      <Table color='black'>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell>Calories</Table.HeaderCell>
+            <Table.HeaderCell>Carbs</Table.HeaderCell>
+            <Table.HeaderCell>Proteins</Table.HeaderCell>
+            <Table.HeaderCell>Fats</Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+          <Table.Row>
+            <Table.Cell>{user_details.calories}kcal</Table.Cell>
+            <Table.Cell>{user_details.carbs}g</Table.Cell>
+            <Table.Cell>{user_details.proteins}g</Table.Cell>
+            <Table.Cell>{user_details.fats}g</Table.Cell>
+          </Table.Row>
+        </Table.Body>
+      </Table>
+      </Wrapper>
       </>
     )
 

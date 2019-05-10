@@ -63,5 +63,21 @@ client.connect(function(err) {
       })
   })
 
+  app.post('/food/reset', (req, res) => {
+    const { user_id, goal } = req.body
+    users.updateOne({
+      _id: new ObjectId(`${user_id}`)
+    }, {
+      $set: { remaining_calories: Number(goal), calories: 0, carbs: 0, proteins: 0, fats: 0 }
+    })
+      .then(() => {
+        res.send('reset success')
+      })
+      .catch(err => {
+        console.log(err)
+        res.sendStatus(400)
+      })
+  })
+
   app.listen(8000)
 })

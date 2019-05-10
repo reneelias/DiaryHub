@@ -85,6 +85,19 @@ export default class Main extends Component {
     })
   }
 
+  reset = () => {
+    axios.post('/food/reset', {
+      user_id: this.state.user_id,
+      goal: this.state.user_details.goal,
+    })
+      .then(() => {
+        this.getUserDetails()
+      })
+      .catch(err => {
+        console.log(err.response.data)
+      })
+  }
+
   render() {
     const { user_details } = this.state
 
@@ -116,7 +129,7 @@ export default class Main extends Component {
             <Button.Group widths='3'>
               <Button onClick={() => {this.props.history.push('/addfood')}}>Add Food</Button>
               <Button onClick={() => {this.props.history.push('/goal')}}>Set Goal</Button>
-              <Button>Reset</Button>
+              <Button onClick={this.reset}>Reset</Button>
             </Button.Group>
           </Footer>
           </Wrapper>
