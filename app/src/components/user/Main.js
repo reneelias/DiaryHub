@@ -1,15 +1,14 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
+import { Button } from 'semantic-ui-react'
 import NavBar from '../main/NavBar'
 import styled from 'styled-components'
+import axios from 'axios'
 
 const Container = styled.div`
   width: 800px;
   margin: 0 auto;
   margin-top: 50px;
-`
-
-const Daily = styled.div`
 `
 
 const Workout = styled.div`
@@ -26,20 +25,42 @@ const Header = styled.div`
   border-radius: 6px 6px 0px 0px;
 `
 
-const Body = styled.div`
+const Wrapper = styled.div`
   border: 1px solid grey;
 `
 
-const Remaining = styled.div`
-  font-size: 15px;
-  padding: 15px;
+const Body = styled.div`
+  display: flex;
+  flex-direction: row:
 `
 
-const Calories = styled.div`
-  font-size: 40px;
-  padding-left: 15px;
-  padding-bottom: 15px;
+const Left = styled.div`
+  width: 266px;
+`
+
+const Middle = styled.div`
+  width: 266px;
+`
+
+const Right = styled.div`
+  width: 266px;
+`
+
+const Title = styled.div`
+  text-align: center;
+  font-size: 20px;
+  padding: 10px;
+`
+
+const Number = styled.div`
+  text-align: center;
+  font-size: 30px;
   color: green;
+  padding: 5px;
+`
+
+const Footer = styled.div`
+  margin-top: 10px;
 `
 
 export default class Main extends Component {
@@ -47,9 +68,25 @@ export default class Main extends Component {
   state ={
     user_id: localStorage.getItem('user_id'),
     isAuth: localStorage.getItem('isAuth'),
+    user_details: [],
+  }
+
+  componentDidMount() {
+    this.getUserDetails()
+  }
+
+  getUserDetails = () => {
+    axios.get(`/food/${this.state.user_id}`)
+    .then(res => {
+      this.setState({ user_details: res.data })
+    })
+    .catch(() => {
+      console.log('error getting user details')
+    })
   }
 
   render() {
+    const { user_details } = this.state
 
     if (this.state.isAuth !== 'true') {
       return <Redirect to="/" />
@@ -59,16 +96,33 @@ export default class Main extends Component {
       <>
         <NavBar />
         <Container>
-          <Daily>
-            <Header>Daily Summary</Header>
-            <Body>
-              <Remaining>Calories Remaining</Remaining>
-              <Calories>3000</Calories>
-            </Body>
-          </Daily>
-          <Workout>
-            <Header>Workout</Header>
-          </Workout>
+          <Header>Daily Summary</Header>
+          <Wrapper>
+          <Body>
+            <Left>
+              <Title>Goal</Title>
+              <Number>{user_details.goal}</Number>
+            </Left>
+            <Middle>
+              <Title>Calories Remaning</Title>
+              <Number>{user_details.remaining_calories}</Number>
+            </Middle>
+            <Right>
+              <Title>Calories Eaten</Title>
+              <Number>{user_details.calories}</Number>
+            </Right>
+          </Body>
+          <Footer>
+            <Button.Group widths='3'>
+              <Button onClick={() => {this.props.history.push('/addfood')}}>Add Food</Button>
+              <Button onClick={() => {this.props.history.push('/goal')}}>Set Goal</Button>
+              <Button>Reset</Button>
+            </Button.Group>
+          </Footer>
+          </Wrapper>
+        <Workout>
+          <Header>Workout</Header>
+        </Workout>
         </Container>
       </>
     )

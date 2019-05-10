@@ -6,6 +6,7 @@ import Register from '../components/main/Register'
 import Main from '../components/user/Main'
 import AddFood from '../components/user/AddFood'
 import CheckIn from '../components/user/CheckIn'
+import Goal from '../components/user/Goal';
 
 const Routes = () => (
     <Router>
@@ -16,6 +17,7 @@ const Routes = () => (
           <Route exact path="/home" component={Main}/>
           <Route exact path="/addfood" component={AddFood}/>
           <Route exact path="/checkin" component={CheckIn}/>
+          <Route exact path="/goal" component={Goal}/>
         </>
     </Router>
 )
