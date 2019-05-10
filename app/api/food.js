@@ -31,12 +31,12 @@ client.connect(function(err) {
       })
   })
 
-  app.post('/food/goal', (req, res) => {
+  app.post('/food/setgoal', (req, res) => {
     const { user_id , goal } = req.body
     users.updateOne({
       _id: new ObjectId(`${user_id}`)
     }, {
-      $set: { goal }
+      $set: { goal: Number(goal), remaining_calories: Number(goal) }
     })
       .then(() => {
         res.send(`set goal to ${goal}`)
@@ -47,14 +47,12 @@ client.connect(function(err) {
       })
   })
 
-  app.post('/food/macros', (req, res) => {
-    const { user_id, carbs, proteins, fats } = req.body
+  app.post('/food/add', (req, res) => {
+    const { user_id, calories, carbs, proteins, fats } = req.body
     users.updateOne({
       _id: new ObjectId(`${user_id}`)
     }, {
-      $inc: {carbs: Number(carbs)},
-      $inc: {proteins: Number(proteins)},
-      $inc: {fats: Number(fats)}
+      $inc: {calories: Number(calories), remaining_calories: -Number(calories), carbs: Number(carbs), proteins: Number(proteins), fats: Number(fats)}
     })
       .then(() => {
         res.send('success')
