@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import NavBar from '../main/NavBar'
 import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react'
+import { Redirect } from 'react-router-dom'
+import NavBar from '../main/NavBar'
 import styled from 'styled-components'
 import axios from 'axios'
 
@@ -27,19 +28,31 @@ class AddFood extends Component {
   }
 
   addFood = e => {
+    const { user_id, calories, carbs, proteins, fats } = this.state
     e.preventDefault()
-    axios.post('/food/add', {
-      user_id: this.state.user_id,
-      calories: this.state.calories,
-      proteins: this.state.proteins,
-      fats: this.state.fats,
-    })
-      .then(() => {
+    if (calories.length !== 0 && carbs.length !== 0 & proteins.length !== 0 & fats.length !== 0) {
+      axios.post('/food/add', {
+        user_id,
+        calories,
+        carbs,
+        proteins,
+        fats,
+      })
+        .then(() => {
+          this.setState({
+            calories: '',
+            carbs: '',
+            proteins: '',
+            fats: '',
+          })
+        })
+        .catch(err => {
+          console.log(err.response.data)
+        })
+    } else {
+      console.log('no empty fields')
+    }
 
-      })
-      .catch(err => {
-        console.log(err.response.data)
-      })
   }
 
   changeCalories = e => {
@@ -71,6 +84,11 @@ class AddFood extends Component {
   }
 
   render() {
+
+    if (this.state.isAuth !== 'true') {
+      return <Redirect to="/" />
+    }
+
     return (
       <>
       <NavBar />
@@ -124,6 +142,7 @@ class AddFood extends Component {
       </Container>
       </>
     )
+
   }
 }
 
