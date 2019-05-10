@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
 import NavBar from '../main/NavBar'
 import styled from 'styled-components'
 
@@ -41,8 +42,19 @@ const Calories = styled.div`
   color: green;
 `
 
-class Main extends Component {
+export default class Main extends Component {
+
+  state ={
+    user_id: localStorage.getItem('user_id'),
+    isAuth: localStorage.getItem('isAuth'),
+  }
+
   render() {
+
+    if (this.state.isAuth !== 'true') {
+      return <Redirect to="/" />
+    }
+
     return (
       <>
         <NavBar />
@@ -60,7 +72,6 @@ class Main extends Component {
         </Container>
       </>
     )
+
   }
 }
-
-export default Main

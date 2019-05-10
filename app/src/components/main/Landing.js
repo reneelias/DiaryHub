@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
 import { Button } from 'semantic-ui-react'
 import styled from 'styled-components'
 
@@ -51,7 +52,17 @@ const Para = styled.p`
 `
 
 export default class Landing extends Component {
+
+  state = {
+    isAuth: localStorage.getItem('isAuth'),
+  }
+
   render() {
+
+    if (this.state.isAuth === 'true' ) {
+      return <Redirect to="/home" />
+    }
+
     return (
       <>
         <Container>
@@ -74,5 +85,6 @@ export default class Landing extends Component {
         </Footer>
       </>
     )
+
   }
 }

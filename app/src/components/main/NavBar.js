@@ -64,19 +64,48 @@ const StyledButton = styled.button`
 `
 
 class NavBar extends Component {
+
+  state = {
+    isAuth: localStorage.getItem('isAuth'),
+  }
+
+  logout = e => {
+    e.preventDefault()
+    localStorage.removeItem('user_id')
+    localStorage.removeItem('isAuth')
+    this.props.history.push('/')
+  }
+
+  getNav = () => {
+    if (this.state.isAuth === 'true') {
+      return (
+        <>
+          <Button><Linker to="/addfood">Add Food</Linker></Button>
+          <Button><Linker to="/">Workouts</Linker></Button>
+          <Button><Linker to="/">Recipes</Linker></Button>
+          <Button><Linker to="/checkin">Check In</Linker></Button>
+          <Button><StyledButton onClick={this.logout}>Logout</StyledButton></Button>
+        </>
+      )
+    } else {
+      return (
+        <>
+          <Button><Linker to="/login">Login</Linker></Button>
+          <Button><Linker to="/register">Sign Up</Linker></Button>
+        </>
+      )
+    }
+  }
+
   render() {
     return (
       <Container>
         <LeftColumn>
-          <Nav to="/main">Diary Hub</Nav>
+          <Nav to="/home">Diary Hub</Nav>
         </LeftColumn>
         <RightColumn>
           <List>
-            <Button><Linker to="/addfood">Add Food</Linker></Button>
-            <Button><Linker to="/">Workouts</Linker></Button>
-            <Button><Linker to="/">Recipes</Linker></Button>
-            <Button><Linker to="/">Check In</Linker></Button>
-            <Button><StyledButton onClick={this.logOut}>Logout</StyledButton></Button>
+            {this.getNav()}
           </List>
         </RightColumn>
       </Container>

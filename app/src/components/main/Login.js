@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import NavBar from './NavBar'
 import styled from 'styled-components'
+import axios from 'axios'
 
 const Container = styled.div`
   width: 630px;
@@ -16,7 +17,37 @@ const StyledLabel = styled.label`
 `
 
 export default class Login extends Component {
+
+  state = {
+    isAuth: localStorage.getItem('isAuth'),
+    username: '',
+    password: '',
+  }
+
+  login = () => {
+    axios.post('/user/login', {
+      username: this.state.username,
+      password: this.state.password,
+    })
+      .then(res => {
+        if (res.data === 'login invalid') {
+          console.log('login invalid')
+        } else {
+          localStorage.setItem('user_id', res.data.user_id)
+          localStorage.setItem('isAuth', res.data.isAuth)
+          this.props.history.push('/home')
+        }
+      })
+      .catch(err => {
+        console.log(err.response.data)
+      })
+  }
   render() {
+
+    if (this.state.isAuth === 'true') {
+      return <Redirect to="/home" />
+    } 
+
     return (
       <>
       <NavBar />
@@ -24,12 +55,12 @@ export default class Login extends Component {
       <Grid>
         <Grid.Column style={{ width: '630px' }}>
           <Header as='h2' color='black' textAlign='center'>Log-in to your account</Header>
-          <Form size='large'>
+          <Form size='large' onSubmit={this.login}>
             <Segment stacked>
               <StyledLabel>Username</StyledLabel>
-              <Form.Input fluid icon='user' iconPosition='left' placeholder='Username' />
+              <Form.Input fluid icon='user' iconPosition='left' placeholder='Username' value={this.state.username} onChange={(e) => {this.setState({username: e.target.value})}} />
               <StyledLabel>Password</StyledLabel>
-              <Form.Input fluid icon='lock' iconPosition='left' placeholder='Password' type='password' />
+              <Form.Input fluid icon='lock' iconPosition='left' placeholder='Password' type='password' value={this.state.password} onChange={(e) => {this.setState({password: e.target.value})}} />
               <Button color='black' fluid size='large'>Login</Button>
             </Segment>
           </Form>

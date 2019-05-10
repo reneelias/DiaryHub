@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { Button, Form } from 'semantic-ui-react'
+import { Redirect } from 'react-router-dom'
 import NavBar from './NavBar'
 import styled from 'styled-components'
+import axios from 'axios'
 
 const Container = styled.div`
   max-width: 600px;
-  padding-left: 10px;
+  padding-left: 10paxios
   padding-right: 10px;
   margin: auto;
   margin-top: 5%;
@@ -25,26 +27,65 @@ const Wrapper = styled.div`
 `
 
 export default class Register extends Component {
+
+  state = {
+    isAuth: localStorage.getItem('isAuth'),
+    username: '',
+    firstname: '',
+    lastname: '',
+    password: '',
+  }
+
+  register = e => {
+    e.preventDefault()
+    const { username, firstname, lastname, password } = this.state
+    if (username.length !== 0 && firstname.length !== 0 && lastname.length !== 0 && password.length !== 0) {
+      axios.post('/user/register', {
+        username,
+        firstname,
+        lastname,
+        password,
+      })
+        .then(res => {
+          localStorage.setItem('user_id', res.data.user_id)
+          localStorage.setItem('isAuth', res.data.isAuth)
+          this.props.history.push('/home')
+        })
+        .catch(() => {
+          console.log('submission error')
+        })
+    } else {
+      console.log('empty fields')
+    }
+  }
+
   render() {
+
+    if (this.state.isAuth === 'true') {
+      return <Redirect to="/home" />
+    } 
+
     return (
       <>
         <NavBar />
         <Container>
-          <Form onSubmit={this.handleRegister}>
+          <Form onSubmit={this.register}>
             <Title>Create an account</Title>
             <Wrapper>
               <Form.Field>
                 <label>Username</label>
-                <Form.Input 
+                <Form.Input
+                  maxLength="20" 
                   fluid icon='user' 
                   iconPosition='left' 
                   placeholder='Username' 
-                  onChange={(e) => {this.setState({email: e.target.value})}}
+                  onChange={(e) => {this.setState({username: e.target.value})}}
                 />
               </Form.Field>
               <Form.Field>
                 <label>First Name</label>
-                <Form.Input 
+                <Form.Input
+                  maxLength="20" 
                   fluid icon='user' 
                   iconPosition='left' 
                   placeholder='First Name' 
@@ -53,7 +94,8 @@ export default class Register extends Component {
               </Form.Field>
               <Form.Field>
                 <label>Last Name</label>
-                <Form.Input 
+                <Form.Input
+                  maxLength="20" 
                   fluid icon='user' 
                   iconPosition='left' 
                   placeholder='Last Name' 
@@ -62,7 +104,8 @@ export default class Register extends Component {
               </Form.Field>
               <Form.Field>
                 <label>Password</label>
-                <Form.Input 
+                <Form.Input
+                  maxLength="20" 
                   fluid icon='lock' 
                   iconPosition='left' 
                   placeholder='Password' 

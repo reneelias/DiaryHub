@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'semantic-ui-css/semantic.min.css'
 import * as serviceWorker from './serviceWorker';
-import MainRoutes from './routes/MainRoutes'
+import Routes from './routes/Routes'
 
 import { Provider } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
@@ -16,7 +16,7 @@ const store = createStore(rootReducer);
 
 ReactDOM.render(
   <Provider store={store}>
-    <MainRoutes />
+    <Routes />
   </Provider>
 , document.getElementById('root'));
 

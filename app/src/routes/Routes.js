@@ -4,18 +4,20 @@ import Landing from '../components/main/Landing'
 import Login from '../components/main/Login'
 import Register from '../components/main/Register'
 import Main from '../components/user/Main'
-import AddFood from '../components/main/AddFood';
+import AddFood from '../components/main/AddFood'
+import CheckIn from '../components/user/CheckIn'
 
-const MainRoutes = () => (
+const Routes = () => (
     <Router>
         <>
           <Route exact path="/" component={Landing}/>
           <Route exact path="/login" component={Login}/>
           <Route exact path="/register" component={Register}/>
-          <Route exact path="/main" component={Main}/>
+          <Route exact path="/home" component={Main}/>
           <Route exact path="/addfood" component={AddFood}/>
+          <Route exact path="/checkin" component={CheckIn}/>
         </>
     </Router>
 )
 
-export default MainRoutes;
+export default Routes;
