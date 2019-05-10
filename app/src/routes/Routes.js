@@ -4,7 +4,7 @@ import Landing from '../components/main/Landing'
 import Login from '../components/main/Login'
 import Register from '../components/main/Register'
 import Main from '../components/user/Main'
-import AddFood from '../components/main/AddFood'
+import AddFood from '../components/user/AddFood'
 import CheckIn from '../components/user/CheckIn'
 
 const Routes = () => (
