@@ -1,13 +1,13 @@
 module.exports = { 
   apps: [
     {
-      name: 'index',
-      script: './api/index.js',
+      name: 'gateway',
+      script: './api/gateway.js',
       watch: true,
     },
     {
-      name: 'daily',
-      script: './api/services/daily.js',
+      name: 'user',
+      script: './api/user.js',
       watch: true,
     },
   ],
