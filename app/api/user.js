@@ -32,7 +32,15 @@ client.connect(function(err) {
       username: req.body.username.toLowerCase(),
       firstname: req.body.firstname.toLowerCase(),
       lastname: req.body.lastname.toLowerCase(),
-      password: req.body.password
+      password: req.body.password,
+      goal: 0,
+      remaining_calories: 0,
+      breakfast: [],
+      lunch: [],
+      dinner: [],
+      carbs: 0,
+      fats: 0,
+      proteins: 0,
     }
     users.insertOne(User)
       .then((result) => {

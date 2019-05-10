@@ -12,4 +12,8 @@ app.all('/user*', (req, res) => {
   apiProxy.web(req, res, { target: 'http://localhost:9000' })
 })
 
+app.all('/food*', (req, res) => {
+  apiProxy.web(req, res, { target: 'http://localhost:8000' })
+})
+
 app.listen(4000)
