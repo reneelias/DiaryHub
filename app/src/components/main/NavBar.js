@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter, Link, NavLink } from 'react-router-dom'
+import { Dropdown } from 'semantic-ui-react'
 import styled from 'styled-components'
 
 const Container = styled.div`
@@ -67,6 +68,19 @@ class NavBar extends Component {
 
   state = {
     isAuth: localStorage.getItem('isAuth'),
+    width: window.innerWidth,
+  }
+
+  componentWillMount() {
+    window.addEventListener('resize', this.handleWindowSizeChange)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleWindowSizeChange)
+  }
+  
+  handleWindowSizeChange = () => {
+    this.setState({ width: window.innerWidth });
   }
 
   logout = e => {
@@ -81,8 +95,8 @@ class NavBar extends Component {
       return (
         <>
           <Button><Linker to="/addfood">Add Food</Linker></Button>
-          <Button><Linker to="/">Workouts</Linker></Button>
-          <Button><Linker to="/">Recipes</Linker></Button>
+          <Button><Linker to="/workouts">Workouts</Linker></Button>
+          <Button><Linker to="/recipes">Recipes</Linker></Button>
           <Button><Linker to="/checkin">Check In</Linker></Button>
           <Button><StyledButton onClick={this.logout}>Logout</StyledButton></Button>
         </>
@@ -97,7 +111,52 @@ class NavBar extends Component {
     }
   }
 
+  getNavMobile = () => {
+    if (this.state.isAuth === 'true') {
+      return (
+        <>
+          <Dropdown style={{float: 'right', margin: '12px'}} text='Menu' icon='options' floating labeled button className='icon'>
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={() => {this.props.history.push('/addfood')}}>Add Food</Dropdown.Item>
+              <Dropdown.Item onClick={() => {this.props.history.push('/workouts')}}>Workouts</Dropdown.Item>
+              <Dropdown.Item onClick={() => {this.props.history.push('/recipes')}}>Recipes</Dropdown.Item>
+              <Dropdown.Item onClick={() => {this.props.history.push('/checkin')}}>Check In</Dropdown.Item>
+              <Dropdown.Item onClick={this.logout}>Logout</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </>
+      )
+    } else {
+      return (
+        <>
+          <Dropdown style={{float: 'right', margin: '12px'}} text='Menu' icon='options' floating labeled button className='icon'>
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={() => {this.props.history.push('/login')}}>Login</Dropdown.Item>
+              <Dropdown.Item onClick={() => {this.props.history.push('/register')}}>Sign Up</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </>
+      )
+    }
+  }
+
   render() {
+    const { width } = this.state;
+    const isMobile = width <= 845;
+
+    if (isMobile) {
+      return (
+        <Container>
+          <LeftColumn>
+            <Nav to="/home">Diary Hub</Nav>
+          </LeftColumn>
+          <RightColumn>
+            {this.getNavMobile()}
+          </RightColumn>
+        </Container>
+      )
+    }
+
     return (
       <Container>
         <LeftColumn>
@@ -110,6 +169,7 @@ class NavBar extends Component {
         </RightColumn>
       </Container>
     )
+
   }
 }
 

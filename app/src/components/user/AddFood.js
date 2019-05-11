@@ -6,9 +6,10 @@ import styled from 'styled-components'
 import axios from 'axios'
 
 const Container = styled.div`
-  width: 630px;
+  max-width: 630px;
   margin: 0 auto;
   margin-top: 30px;
+  padding: 10px;
 `
 
 const StyledLabel = styled.label`
@@ -17,9 +18,10 @@ const StyledLabel = styled.label`
 `
 
 const Wrapper = styled.div`
-  width: 630px;
+  max-width: 630px;
   margin: 0 auto;
   margin-top: 50px;
+  padding: 10px;
 `
 
 class AddFood extends Component {

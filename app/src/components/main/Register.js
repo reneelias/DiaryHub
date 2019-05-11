@@ -7,8 +7,7 @@ import axios from 'axios'
 
 const Container = styled.div`
   max-width: 600px;
-  padding-left: 10paxios
-  padding-right: 10px;
+  padding: 10px;
   margin: auto;
   margin-top: 5%;
 `
