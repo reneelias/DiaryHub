@@ -14,12 +14,18 @@ const Nav = styled.div`
   margin: 0 auto;
   max-width: 1000px;
   text-align: right;
+  @media (max-width: 650px) {
+    margin-right: 20px;
+  }
 `
 
 const Wrapper = styled.div`
   width: 490px;
   margin: 0 auto;
   margin-top: 100px;
+  @media (max-width: 650px) {
+    width: 380px;
+  }
 `
 
 const Title = styled.h1`
@@ -32,6 +38,9 @@ const Description = styled.div`
   color: white;
   font-size: 2em;
   padding-bottom: 30px;
+  @media (max-width: 650px) {
+    display: none;
+  }
 `
 
 const Footer = styled.div`
@@ -49,6 +58,9 @@ const Para = styled.p`
   text-align: center;
   width: 50%
   margin: 0 auto;
+  @media (max-width: 650px) {
+    width: 85%;
+  }
 `
 
 export default class Landing extends Component {
