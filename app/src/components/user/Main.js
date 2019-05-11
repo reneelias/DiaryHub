@@ -9,6 +9,9 @@ const Container = styled.div`
   width: 800px;
   margin: 0 auto;
   margin-top: 50px;
+  @media (max-width: 845px) {
+    width: 350px;
+  }
 `
 
 const Workout = styled.div`
@@ -98,6 +101,14 @@ export default class Main extends Component {
       })
   }
 
+  addFood = () => {
+    if (this.state.user_details.goal !== 0) {
+      this.props.history.push('/addfood')
+    } else {
+      console.log('set goal first before you add food')
+    }
+  }
+
   render() {
     const { user_details } = this.state
 
@@ -127,7 +138,7 @@ export default class Main extends Component {
           </Body>
           <Footer>
             <Button.Group widths='3'>
-              <Button onClick={() => {this.props.history.push('/addfood')}}>Add Food</Button>
+              <Button onClick={this.addFood}>Add Food</Button>
               <Button onClick={() => {this.props.history.push('/goal')}}>Set Goal</Button>
               <Button onClick={this.reset}>Reset</Button>
             </Button.Group>

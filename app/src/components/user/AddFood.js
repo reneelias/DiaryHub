@@ -53,6 +53,11 @@ class AddFood extends Component {
   addFood = e => {
     const { user_id, calories, carbs, proteins, fats } = this.state
     e.preventDefault()
+
+    if (this.state.user_details.goal === 0) {
+      console.log('set goal before you add food')
+    } else {
+
     if (calories.length !== 0 && carbs.length !== 0 & proteins.length !== 0 & fats.length !== 0) {
       axios.post('/food/add', {
         user_id,
@@ -77,6 +82,7 @@ class AddFood extends Component {
       console.log('no empty fields')
     }
 
+    }
   }
 
   changeCalories = e => {
