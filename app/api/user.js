@@ -39,6 +39,8 @@ client.connect(function(err) {
       carbs: 0,
       fats: 0,
       proteins: 0,
+      recipes: [],
+      workouts: [],
     }
     users.insertOne(User)
       .then((result) => {
