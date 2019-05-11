@@ -10,5 +10,15 @@ module.exports = {
       script: './api/user.js',
       watch: true,
     },
+    {
+      name: 'food',
+      script: './api/food.js',
+      watch: true,
+    },
+    {
+      name: 'recipe',
+      script: './api/recipe.js',
+      watch: true,
+    },
   ],
 };
