@@ -55,6 +55,10 @@ class Workouts extends Component {
         })
       }
 
+      changeWorkoutName = e => {
+        this.setState({workoutName: e.target.value})
+      }
+
       changeCaloriesBurn = e => {
         const regex = /^[0-9\b]+$/;
         if (e.target.value === '' || regex.test(e.target.value)) {
@@ -99,6 +103,7 @@ class Workouts extends Component {
                         placeholder='name'
                         maxLength="20" 
                         value={this.state.workoutName}
+                        onChange={(e) => {this.changeWorkoutName(e)}}
                     />
                     <StyledLabel>Workout Time</StyledLabel>
                     <Form.Input 
