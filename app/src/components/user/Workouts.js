@@ -1,0 +1,163 @@
+import React, { Component } from 'react'
+import { Button, Form, Grid, Header, Segment, Table } from 'semantic-ui-react'
+import { Redirect } from 'react-router-dom'
+import NavBar from '../main/NavBar'
+import styled from 'styled-components'
+import axios from 'axios'
+
+const Container = styled.div`
+  max-width: 630px;
+  margin: 0 auto;
+  margin-top: 30px;
+  padding: 10px;
+`
+
+const StyledLabel = styled.label`
+  font-weight: bold;
+  display: block;
+`
+
+const Wrapper = styled.div`
+  max-width: 630px;
+  margin: 0 auto;
+  margin-top: 50px;
+  padding: 10px;
+`
+
+
+class Workouts extends Component {
+
+    state ={
+        user_id: localStorage.getItem('user_id'),
+        isAuth: localStorage.getItem('isAuth'),
+        user_details: [],
+        calories: '',
+        carbs: '',
+        proteins: '',
+        fats: '',
+        workoutName: '',
+        workoutTime: '',
+        caloriesBurn: '',
+        fatsBurn: '',
+      }
+
+      componentDidMount() {
+        this.getUserDetails()
+      }
+    
+      getUserDetails = () => {
+        axios.get(`/food/${this.state.user_id}`)
+        .then(res => {
+          this.setState({ user_details: res.data })
+        })
+        .catch(() => {
+          console.log('error getting user details')
+        })
+      }
+
+      changeCaloriesBurn = e => {
+        const regex = /^[0-9\b]+$/;
+        if (e.target.value === '' || regex.test(e.target.value)) {
+          this.setState({caloriesBurn: e.target.value})
+        }
+      }
+
+      changeWorkoutTime = e => {
+        const regex = /^[0-9\b]+$/;
+        if (e.target.value === '' || regex.test(e.target.value)) {
+          this.setState({workoutTime: e.target.value})
+        }
+      }
+
+      changeFatsBurn = e => {
+        const regex = /^[0-9\b]+$/;
+        if (e.target.value === '' || regex.test(e.target.value)) {
+          this.setState({fatsBurn: e.target.value})
+        }
+      }
+
+    render() {
+        const { user_details } = this.state
+
+        if (this.state.isAuth !== 'true') {
+            return <Redirect to="/" />
+          }
+
+        return(
+        <>
+            <NavBar />
+            <Container>
+                <Grid>
+                    <Grid.Column style={{ width: '630px' }}>
+                    <Header as='h2' color='black' textAlign='center'>Workouts</Header>
+                    <Form size='large' onSubmit={this.workouts}>
+                    <Segment stacked>
+                    <StyledLabel>Workout Name</StyledLabel>
+                    <Form.Input 
+                        fluid icon='child' 
+                        iconPosition='left' 
+                        placeholder='name'
+                        maxLength="20" 
+                        value={this.state.workoutName}
+                    />
+                    <StyledLabel>Workout Time</StyledLabel>
+                    <Form.Input 
+                        fluid icon='clock' 
+                        iconPosition='left' 
+                        placeholder='mins'
+                        maxLength="5" 
+                        value={this.state.workoutTime}
+                        onChange={(e) => {this.changeWorkoutTime(e)}}
+                    />
+                    <StyledLabel>Calories Burn</StyledLabel>
+                    <Form.Input 
+                        fluid icon='hotjar' 
+                        iconPosition='left' 
+                        placeholder='kcal'
+                        maxLength="5" 
+                        value={this.state.caloriesBurn}
+                        onChange={(e) => {this.changeCaloriesBurn(e)}}
+                    />
+                    <StyledLabel>Fat Burn</StyledLabel>
+                    <Form.Input 
+                        fluid icon='hotjar' 
+                        iconPosition='left' 
+                        placeholder='grams'
+                        maxLength="5" 
+                        value={this.state.fatsBurn}
+                        onChange={(e) => {this.changeFatsBurn(e)}}
+                    />
+                    
+                    <Button color='black' fluid size='large'>Submit</Button>
+                    </Segment>
+                    </Form>
+                    </Grid.Column>
+                </Grid>
+                <Wrapper>
+                    <h1 style={{textAlign: 'center'}}>Totals</h1>
+                    <Table color='black'>
+                        <Table.Header>
+                        <Table.Row>
+                            <Table.HeaderCell>Calories</Table.HeaderCell>
+                            <Table.HeaderCell>Carbs</Table.HeaderCell>
+                            <Table.HeaderCell>Proteins</Table.HeaderCell>
+                            <Table.HeaderCell>Fats</Table.HeaderCell>
+                        </Table.Row>
+                        </Table.Header>
+                        <Table.Body>
+                        <Table.Row>
+                            <Table.Cell>{user_details.calories}kcal</Table.Cell>
+                            <Table.Cell>{user_details.carbs}g</Table.Cell>
+                            <Table.Cell>{user_details.proteins}g</Table.Cell>
+                            <Table.Cell>{user_details.fats}g</Table.Cell>
+                        </Table.Row>
+                        </Table.Body>
+                    </Table>
+                </Wrapper>
+            </Container>
+        </>
+        )
+    }
+}
+
+export default Workouts

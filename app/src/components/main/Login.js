@@ -33,6 +33,7 @@ export default class Login extends Component {
       .then(res => {
         if (res.data === 'login invalid') {
           console.log('login invalid')
+          alert('Please check your Username and Password!\nAnd check it again!')
         } else {
           localStorage.setItem('user_id', res.data.user_id)
           localStorage.setItem('isAuth', res.data.isAuth)
