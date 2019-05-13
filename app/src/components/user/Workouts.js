@@ -46,7 +46,7 @@ class Workouts extends Component {
       }
     
       getUserDetails = () => {
-        axios.get(`/food/${this.state.user_id}`)
+        axios.get(`/workout/${this.state.user_id}`)
         .then(res => {
           this.setState({ user_details: res.data })
         })
@@ -77,6 +77,41 @@ class Workouts extends Component {
         const regex = /^[0-9\b]+$/;
         if (e.target.value === '' || regex.test(e.target.value)) {
           this.setState({fatsBurn: e.target.value})
+        }
+      }
+
+      workouts = e => {
+        const { user_id, workoutName, workoutTime, caloriesBurn, fatsBurn } = this.state
+        e.preventDefault()
+    
+        if (this.state.user_details.goal === 0) {
+          console.log('set goal before you add food')
+        } else {
+    
+        if (workoutName.length !== 0 && workoutTime.length !== 0 & caloriesBurn.length !== 0 & fatsBurn.length !== 0) {
+          axios.post('/workout/add', {
+            user_id,
+            workoutName,
+            workoutTime,
+            caloriesBurn,
+            fatsBurn,
+          })
+            .then(() => {
+              this.getUserDetails()
+              this.setState({
+                workoutName: '',
+                workoutTime: '',
+                caloriesBurn: '',
+                fatsBurn: '',
+              })
+            })
+            .catch(err => {
+              console.log(err.response.data)
+            })
+        } else {
+          console.log('no empty fields')
+        }
+    
         }
       }
 

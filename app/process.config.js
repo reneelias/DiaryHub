@@ -20,5 +20,10 @@ module.exports = {
       script: './api/recipe.js',
       watch: true,
     },
+    {
+      name: 'workout',
+      script: './api/workout.js',
+      watch: true,
+    },
   ],
 };
