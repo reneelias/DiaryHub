@@ -38,7 +38,7 @@ client.connect(function(err) {
     users.update({
       _id: new ObjectId(`${user_id}`)
     },{
-      $addToSet: {workouts: [{"workoutName": workoutName}, {"workoutTime": Number(workoutTime)}, {"caloriesBurn": Number(caloriesBurn)}, {fatsBurn: Number(fatsBurn)} ]}
+      $addToSet: {workouts: {"workoutName": workoutName, "workoutTime": Number(workoutTime), "caloriesBurn": Number(caloriesBurn), fatsBurn: Number(fatsBurn)} }
     })
       .then((res) => {
         res.send("Workout Array Added")

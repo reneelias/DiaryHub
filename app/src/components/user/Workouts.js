@@ -126,6 +126,8 @@ class Workouts extends Component {
         return(
         <>
             <NavBar />
+            {console.log(user_details.calories)}
+            {console.log(this.state.user_details.workouts)}
             <Container>
                 <Grid>
                     <Grid.Column style={{ width: '630px' }}>
@@ -206,14 +208,12 @@ class Workouts extends Component {
                       </Table.Header>
 
                       <Table.Body>
-                          {/* {user_details.workouts.map( (item, i) => 
-                              <Table.Row key={i}>
-                                  <Table.Cell>{item.workoutName}</Table.Cell>
-                                  <Table.Cell>{item.workoutTime}</Table.Cell>
-                                  <Table.Cell>{item.caloriesBurn}</Table.Cell>
-                                  <Table.Cell>{item.fatsBurn}</Table.Cell>
-                              </Table.Row>)
-                            } */}
+                        <Table.Row>
+                            {/* <Table.Cell>{user_details.workouts[0][0]workoutName}</Table.Cell> */}
+                            {/* <Table.Cell>{item.workoutTime}</Table.Cell>
+                            <Table.Cell>{item.caloriesBurn}</Table.Cell>
+                            <Table.Cell>{item.fatsBurn}</Table.Cell> */}
+                        </Table.Row>
                       </Table.Body>
                   </Table>
                 </Wrapper>
