@@ -121,13 +121,11 @@ class Workouts extends Component {
 
         if (this.state.isAuth !== 'true') {
             return <Redirect to="/" />
-          }
+        }
 
         return(
         <>
             <NavBar />
-            {console.log(user_details.calories)}
-            {console.log(this.state.user_details.workouts)}
             <Container>
                 <Grid>
                     <Grid.Column style={{ width: '630px' }}>
@@ -197,7 +195,8 @@ class Workouts extends Component {
                         </Table.Body>
                     </Table>
                     
-                  <Table celled fixed>
+                  <h1 style={{textAlign: 'center'}}>Workouts Record</h1>
+                  <Table color='black'celled fixed>
                       <Table.Header>
                           <Table.Row>
                               <Table.HeaderCell>Workout Name</Table.HeaderCell>
@@ -208,12 +207,14 @@ class Workouts extends Component {
                       </Table.Header>
 
                       <Table.Body>
-                        <Table.Row>
-                            {/* <Table.Cell>{user_details.workouts[0][0]workoutName}</Table.Cell> */}
-                            {/* <Table.Cell>{item.workoutTime}</Table.Cell>
-                            <Table.Cell>{item.caloriesBurn}</Table.Cell>
-                            <Table.Cell>{item.fatsBurn}</Table.Cell> */}
-                        </Table.Row>
+                        { user_details.workouts !== undefined && Object.keys(user_details.workouts.reverse()).map( (item) => 
+                          <Table.Row key={item}>
+                              <Table.Cell>{user_details.workouts[item].workoutName}</Table.Cell>
+                              <Table.Cell>{user_details.workouts[item].workoutTime}</Table.Cell>
+                              <Table.Cell>{user_details.workouts[item].caloriesBurn}</Table.Cell>
+                              <Table.Cell>{user_details.workouts[item].fatsBurn}</Table.Cell>
+                          </Table.Row>)
+                        }
                       </Table.Body>
                   </Table>
                 </Wrapper>

@@ -147,7 +147,7 @@ export default class Main extends Component {
           </Wrapper>
         <Workout>
           <Header>Workout</Header>
-          <Table celled fixed>
+          <Table color='black' celled fixed>
             <Table.Header>
                 <Table.Row>
                     <Table.HeaderCell>Workout Name</Table.HeaderCell>
@@ -158,14 +158,14 @@ export default class Main extends Component {
             </Table.Header>
 
             <Table.Body>
-                {/* {user_details.workouts.map( (item, i) => 
-                    <Table.Row key={i}>
-                        <Table.Cell>{item.workoutName}</Table.Cell>
-                        <Table.Cell>{item.workoutTime}</Table.Cell>
-                        <Table.Cell>{item.caloriesBurn}</Table.Cell>
-                        <Table.Cell>{item.fatsBurn}</Table.Cell>
-                    </Table.Row>)
-                  } */}
+              { user_details.workouts !== undefined && Object.keys(user_details.workouts.reverse()).map( (item) => 
+                <Table.Row key={item}>
+                    <Table.Cell>{user_details.workouts[item].workoutName}</Table.Cell>
+                    <Table.Cell>{user_details.workouts[item].workoutTime}</Table.Cell>
+                    <Table.Cell>{user_details.workouts[item].caloriesBurn}</Table.Cell>
+                    <Table.Cell>{user_details.workouts[item].fatsBurn}</Table.Cell>
+                </Table.Row>)
+              }
             </Table.Body>
           </Table>
         </Workout>
