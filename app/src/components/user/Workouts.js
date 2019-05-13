@@ -85,7 +85,8 @@ class Workouts extends Component {
         e.preventDefault()
     
         if (this.state.user_details.goal === 0) {
-          console.log('set goal before you add food')
+          alert('Set goal before you workout!')
+          console.log('set goal before you workout')
         } else {
     
         if (workoutName.length !== 0 && workoutTime.length !== 0 & caloriesBurn.length !== 0 & fatsBurn.length !== 0) {
@@ -193,6 +194,28 @@ class Workouts extends Component {
                         </Table.Row>
                         </Table.Body>
                     </Table>
+                    
+                  <Table celled fixed>
+                      <Table.Header>
+                          <Table.Row>
+                              <Table.HeaderCell>Workout Name</Table.HeaderCell>
+                              <Table.HeaderCell>Workout Time</Table.HeaderCell>
+                              <Table.HeaderCell>Calories Burn</Table.HeaderCell>
+                              <Table.HeaderCell>Fat Burn</Table.HeaderCell>
+                          </Table.Row>
+                      </Table.Header>
+
+                      <Table.Body>
+                          {/* {user_details.workouts.map( (item, i) => 
+                              <Table.Row key={i}>
+                                  <Table.Cell>{item.workoutName}</Table.Cell>
+                                  <Table.Cell>{item.workoutTime}</Table.Cell>
+                                  <Table.Cell>{item.caloriesBurn}</Table.Cell>
+                                  <Table.Cell>{item.fatsBurn}</Table.Cell>
+                              </Table.Row>)
+                            } */}
+                      </Table.Body>
+                  </Table>
                 </Wrapper>
             </Container>
         </>

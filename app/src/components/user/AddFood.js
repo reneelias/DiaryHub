@@ -55,6 +55,7 @@ class AddFood extends Component {
     e.preventDefault()
 
     if (this.state.user_details.goal === 0) {
+      alert('Set goal before you add food!')
       console.log('set goal before you add food')
     } else {
 

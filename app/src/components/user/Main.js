@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
-import { Button } from 'semantic-ui-react'
+import { Button,Table } from 'semantic-ui-react'
 import NavBar from '../main/NavBar'
 import styled from 'styled-components'
 import axios from 'axios'
@@ -82,6 +82,7 @@ export default class Main extends Component {
     axios.get(`/food/${this.state.user_id}`)
     .then(res => {
       this.setState({ user_details: res.data })
+      console.log(this.state.user_details)
     })
     .catch(() => {
       console.log('error getting user details')
@@ -111,7 +112,7 @@ export default class Main extends Component {
 
   render() {
     const { user_details } = this.state
-
+    
     if (this.state.isAuth !== 'true') {
       return <Redirect to="/" />
     }
@@ -146,6 +147,27 @@ export default class Main extends Component {
           </Wrapper>
         <Workout>
           <Header>Workout</Header>
+          <Table celled fixed>
+            <Table.Header>
+                <Table.Row>
+                    <Table.HeaderCell>Workout Name</Table.HeaderCell>
+                    <Table.HeaderCell>Workout Time</Table.HeaderCell>
+                    <Table.HeaderCell>Calories Burn</Table.HeaderCell>
+                    <Table.HeaderCell>Fat Burn</Table.HeaderCell>
+                </Table.Row>
+            </Table.Header>
+
+            <Table.Body>
+                {/* {user_details.workouts.map( (item, i) => 
+                    <Table.Row key={i}>
+                        <Table.Cell>{item.workoutName}</Table.Cell>
+                        <Table.Cell>{item.workoutTime}</Table.Cell>
+                        <Table.Cell>{item.caloriesBurn}</Table.Cell>
+                        <Table.Cell>{item.fatsBurn}</Table.Cell>
+                    </Table.Row>)
+                  } */}
+            </Table.Body>
+          </Table>
         </Workout>
         </Container>
       </>
