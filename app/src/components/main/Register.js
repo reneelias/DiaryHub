@@ -60,7 +60,7 @@ export default class Register extends Component {
           console.log('submission error')
         })
     } else {
-      console.log('empty fields')
+      alert('no empty fields!')
     }
   }
 

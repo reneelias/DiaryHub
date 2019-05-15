@@ -82,7 +82,6 @@ export default class Main extends Component {
     axios.get(`/food/${this.state.user_id}`)
     .then(res => {
       this.setState({ user_details: res.data })
-      console.log(this.state.user_details)
     })
     .catch(() => {
       console.log('error getting user details')

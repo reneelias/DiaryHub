@@ -56,7 +56,6 @@ class AddFood extends Component {
 
     if (this.state.user_details.goal === 0) {
       alert('Set goal before you add food!')
-      console.log('set goal before you add food')
     } else {
 
     if (calories.length !== 0 && carbs.length !== 0 & proteins.length !== 0 & fats.length !== 0) {
@@ -80,7 +79,7 @@ class AddFood extends Component {
           console.log(err.response.data)
         })
     } else {
-      console.log('no empty fields')
+      alert('no empty fields!')
     }
 
     }
