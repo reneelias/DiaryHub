@@ -145,28 +145,27 @@ export default class Main extends Component {
           </Footer>
           </Wrapper>
         <Workout>
-          <Header>Workout</Header>
-          <Table color='black' celled fixed>
-            <Table.Header>
-                <Table.Row>
-                    <Table.HeaderCell>Workout Name</Table.HeaderCell>
-                    <Table.HeaderCell>Workout Time</Table.HeaderCell>
-                    <Table.HeaderCell>Calories Burn</Table.HeaderCell>
-                    <Table.HeaderCell>Fat Burn</Table.HeaderCell>
-                </Table.Row>
-            </Table.Header>
-
-            <Table.Body>
-              { user_details.workouts !== undefined && Object.keys(user_details.workouts.reverse()).map( (item) => 
-                <Table.Row key={item}>
-                    <Table.Cell>{user_details.workouts[item].workoutName}</Table.Cell>
-                    <Table.Cell>{user_details.workouts[item].workoutTime}</Table.Cell>
-                    <Table.Cell>{user_details.workouts[item].caloriesBurn}</Table.Cell>
-                    <Table.Cell>{user_details.workouts[item].fatsBurn}</Table.Cell>
-                </Table.Row>)
-              }
-            </Table.Body>
-          </Table>
+        <h1 style={{textAlign: 'center'}}>Workout</h1>
+        <Table color='black'celled fixed>
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell>Exercise Name</Table.HeaderCell>
+              <Table.HeaderCell>Sets</Table.HeaderCell>
+              <Table.HeaderCell>Reps</Table.HeaderCell>
+              <Table.HeaderCell>Weight</Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            {user_details.workouts !== undefined && Object.keys(user_details.workouts).map((item) => 
+            <Table.Row key={item}>
+              <Table.Cell>{user_details.workouts[item].exercise_name}</Table.Cell>
+              <Table.Cell>{user_details.workouts[item].sets}</Table.Cell>
+              <Table.Cell>{user_details.workouts[item].reps}</Table.Cell>
+              <Table.Cell>{user_details.workouts[item].weight}lbs</Table.Cell>
+            </Table.Row>)
+            }
+          </Table.Body>
+        </Table>
         </Workout>
         </Container>
       </>

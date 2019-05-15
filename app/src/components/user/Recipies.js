@@ -20,7 +20,7 @@ const StyledLabel = styled.label`
 const Wrapper = styled.div`
   max-width: 630px;
   margin: 0 auto;
-  margin-top: 50px;
+  margin-top: 30px;
   padding: 10px;
 `
 

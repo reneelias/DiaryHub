@@ -33,27 +33,14 @@ client.connect(function(err) {
   })
 
   app.post('/workout/add', (req, res) => {
-    const { user_id, workoutName, workoutTime, caloriesBurn, fatsBurn } = req.body
-
-    users.update({
-      _id: new ObjectId(`${user_id}`)
-    },{
-      $addToSet: {workouts: {"workoutName": workoutName, "workoutTime": Number(workoutTime), "caloriesBurn": Number(caloriesBurn), fatsBurn: Number(fatsBurn)} }
-    })
-      .then((res) => {
-        res.send("Workout Array Added")
-      })
-      .catch(err => {
-        console.log(err)
-      })
-
+    const { user_id, exercise_name, sets, reps, weight } = req.body
     users.updateOne({
       _id: new ObjectId(`${user_id}`)
     }, {
-      $inc: {calories: -Number(caloriesBurn), remaining_calories: +Number(caloriesBurn), fats: -Number(fatsBurn) }
-    })
+      $push: { workouts: {exercise_name, sets, reps, weight } }
+    }, )
       .then(() => {
-        res.send('success')
+        res.send('add exercise success')
       })
       .catch(err => {
         console.log(err)

@@ -20,7 +20,7 @@ const StyledLabel = styled.label`
 const Wrapper = styled.div`
   max-width: 630px;
   margin: 0 auto;
-  margin-top: 50px;
+  margin-top: 30px;
   padding: 10px;
 `
 
@@ -31,14 +31,10 @@ class Workouts extends Component {
         user_id: localStorage.getItem('user_id'),
         isAuth: localStorage.getItem('isAuth'),
         user_details: [],
-        calories: '',
-        carbs: '',
-        proteins: '',
-        fats: '',
-        workoutName: '',
-        workoutTime: '',
-        caloriesBurn: '',
-        fatsBurn: '',
+        exercise_name: '',
+        sets: '',
+        reps: '',
+        weight: '',
       }
 
       componentDidMount() {
@@ -55,66 +51,58 @@ class Workouts extends Component {
         })
       }
 
-      changeWorkoutName = e => {
-        this.setState({workoutName: e.target.value})
+      changeExerciseName = e => {
+        this.setState({exercise_name: e.target.value})
       }
 
-      changeCaloriesBurn = e => {
+      changeSets = e => {
         const regex = /^[0-9\b]+$/;
         if (e.target.value === '' || regex.test(e.target.value)) {
-          this.setState({caloriesBurn: e.target.value})
+          this.setState({sets: e.target.value})
         }
       }
 
-      changeWorkoutTime = e => {
+      changeReps = e => {
         const regex = /^[0-9\b]+$/;
         if (e.target.value === '' || regex.test(e.target.value)) {
-          this.setState({workoutTime: e.target.value})
+          this.setState({reps: e.target.value})
         }
       }
 
-      changeFatsBurn = e => {
+      changeWeight = e => {
         const regex = /^[0-9\b]+$/;
         if (e.target.value === '' || regex.test(e.target.value)) {
-          this.setState({fatsBurn: e.target.value})
+          this.setState({weight: e.target.value})
         }
       }
 
       workouts = e => {
-        const { user_id, workoutName, workoutTime, caloriesBurn, fatsBurn } = this.state
         e.preventDefault()
-    
-        if (this.state.user_details.goal === 0) {
-          alert('Set goal before you workout!')
-          console.log('set goal before you workout')
-        } else {
-    
-        if (workoutName.length !== 0 && workoutTime.length !== 0 & caloriesBurn.length !== 0 & fatsBurn.length !== 0) {
+        const { user_id, exercise_name, sets, reps, weight } = this.state
+        if (exercise_name.length !== 0 && sets.length !== 0 && reps.length !== 0 & weight.length !== 0) {
           axios.post('/workout/add', {
             user_id,
-            workoutName,
-            workoutTime,
-            caloriesBurn,
-            fatsBurn,
+            exercise_name,
+            sets,
+            reps,
+            weight,
           })
             .then(() => {
               this.getUserDetails()
               this.setState({
-                workoutName: '',
-                workoutTime: '',
-                caloriesBurn: '',
-                fatsBurn: '',
+                exercise_name: '',
+                sets: '',
+                reps: '',
+                weight: '',
               })
             })
             .catch(err => {
               console.log(err.response.data)
             })
-        } else {
-          console.log('no empty fields')
-        }
-    
-        }
+      } else {
+          alert('no empty fields!')
       }
+    }
 
     render() {
         const { user_details } = this.state
@@ -129,44 +117,44 @@ class Workouts extends Component {
             <Container>
                 <Grid>
                     <Grid.Column style={{ width: '630px' }}>
-                    <Header as='h2' color='black' textAlign='center'>Workouts</Header>
+                    <Header as='h2' color='black' textAlign='center'>Add Exercise</Header>
                     <Form size='large' onSubmit={this.workouts}>
                     <Segment stacked>
-                    <StyledLabel>Workout Name</StyledLabel>
+                    <StyledLabel>Exercise Name</StyledLabel>
                     <Form.Input 
                         fluid icon='child' 
                         iconPosition='left' 
-                        placeholder='name'
                         maxLength="20" 
-                        value={this.state.workoutName}
-                        onChange={(e) => {this.changeWorkoutName(e)}}
+                        placeholder='name'
+                        value={this.state.exercise_name}
+                        onChange={(e) => {this.changeExerciseName(e)}}
                     />
-                    <StyledLabel>Workout Time</StyledLabel>
+                    <StyledLabel>Sets</StyledLabel>
                     <Form.Input 
                         fluid icon='clock' 
                         iconPosition='left' 
-                        placeholder='mins'
                         maxLength="5" 
-                        value={this.state.workoutTime}
-                        onChange={(e) => {this.changeWorkoutTime(e)}}
+                        placeholder='#'
+                        value={this.state.sets}
+                        onChange={(e) => {this.changeSets(e)}}
                     />
-                    <StyledLabel>Calories Burn</StyledLabel>
+                    <StyledLabel>Reps</StyledLabel>
                     <Form.Input 
                         fluid icon='hotjar' 
                         iconPosition='left' 
-                        placeholder='kcal'
                         maxLength="5" 
-                        value={this.state.caloriesBurn}
-                        onChange={(e) => {this.changeCaloriesBurn(e)}}
+                        placeholder='#'
+                        value={this.state.reps}
+                        onChange={(e) => {this.changeReps(e)}}
                     />
-                    <StyledLabel>Fat Burn</StyledLabel>
+                    <StyledLabel>Weight</StyledLabel>
                     <Form.Input 
                         fluid icon='hotjar' 
                         iconPosition='left' 
-                        placeholder='grams'
                         maxLength="5" 
-                        value={this.state.fatsBurn}
-                        onChange={(e) => {this.changeFatsBurn(e)}}
+                        placeholder='lbs'
+                        value={this.state.weight}
+                        onChange={(e) => {this.changeWeight(e)}}
                     />
                     
                     <Button color='black' fluid size='large'>Submit</Button>
@@ -174,50 +162,31 @@ class Workouts extends Component {
                     </Form>
                     </Grid.Column>
                 </Grid>
-                <Wrapper>
-                    <h1 style={{textAlign: 'center'}}>Totals</h1>
-                    <Table color='black'>
-                        <Table.Header>
-                        <Table.Row>
-                            <Table.HeaderCell>Calories</Table.HeaderCell>
-                            <Table.HeaderCell>Carbs</Table.HeaderCell>
-                            <Table.HeaderCell>Proteins</Table.HeaderCell>
-                            <Table.HeaderCell>Fats</Table.HeaderCell>
-                        </Table.Row>
-                        </Table.Header>
-                        <Table.Body>
-                        <Table.Row>
-                            <Table.Cell>{user_details.calories}kcal</Table.Cell>
-                            <Table.Cell>{user_details.carbs}g</Table.Cell>
-                            <Table.Cell>{user_details.proteins}g</Table.Cell>
-                            <Table.Cell>{user_details.fats}g</Table.Cell>
-                        </Table.Row>
-                        </Table.Body>
-                    </Table>
-                    
-                  <h1 style={{textAlign: 'center'}}>Workouts Record</h1>
-                  <Table color='black'celled fixed>
-                      <Table.Header>
-                          <Table.Row>
-                              <Table.HeaderCell>Workout Name</Table.HeaderCell>
-                              <Table.HeaderCell>Workout Time</Table.HeaderCell>
-                              <Table.HeaderCell>Calories Burn</Table.HeaderCell>
-                              <Table.HeaderCell>Fat Burn</Table.HeaderCell>
-                          </Table.Row>
-                      </Table.Header>
 
-                      <Table.Body>
-                        { user_details.workouts !== undefined && Object.keys(user_details.workouts.reverse()).map( (item) => 
-                          <Table.Row key={item}>
-                              <Table.Cell>{user_details.workouts[item].workoutName}</Table.Cell>
-                              <Table.Cell>{user_details.workouts[item].workoutTime}</Table.Cell>
-                              <Table.Cell>{user_details.workouts[item].caloriesBurn}</Table.Cell>
-                              <Table.Cell>{user_details.workouts[item].fatsBurn}</Table.Cell>
-                          </Table.Row>)
-                        }
-                      </Table.Body>
+                <Wrapper>
+                  <h1 style={{textAlign: 'center'}}>Workout</h1>
+                  <Table color='black'celled fixed>
+                    <Table.Header>
+                      <Table.Row>
+                        <Table.HeaderCell>Exercise Name</Table.HeaderCell>
+                        <Table.HeaderCell>Sets</Table.HeaderCell>
+                        <Table.HeaderCell>Reps</Table.HeaderCell>
+                        <Table.HeaderCell>Weight</Table.HeaderCell>
+                      </Table.Row>
+                    </Table.Header>
+                    <Table.Body>
+                      {user_details.workouts !== undefined && Object.keys(user_details.workouts).map((item) => 
+                      <Table.Row key={item}>
+                        <Table.Cell>{user_details.workouts[item].exercise_name}</Table.Cell>
+                        <Table.Cell>{user_details.workouts[item].sets}</Table.Cell>
+                        <Table.Cell>{user_details.workouts[item].reps}</Table.Cell>
+                        <Table.Cell>{user_details.workouts[item].weight}lbs</Table.Cell>
+                      </Table.Row>)
+                      }
+                    </Table.Body>
                   </Table>
                 </Wrapper>
+
             </Container>
         </>
         )
