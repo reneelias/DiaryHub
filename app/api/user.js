@@ -8,7 +8,8 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.set('json spaces', 2)
 
 const url = 'mongodb://localhost:27017'
-// const url = 'mongodb://rene:reneAdmin!@54.183.219.72:27017'
+// const url = 'mongodb://rene:reneAdmin!@13.52.75.229:27017'
+
 const dbName = 'diaryhutdb'
 
 const client = new MongoClient(url, { useNewUrlParser: true })
