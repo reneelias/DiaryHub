@@ -46,9 +46,15 @@ export default class Register extends Component {
         password,
       })
         .then(res => {
-          localStorage.setItem('user_id', res.data.user_id)
-          localStorage.setItem('isAuth', res.data.isAuth)
-          this.props.history.push('/home')
+          axios.get('/counter')
+            .then(() => {
+              localStorage.setItem('user_id', res.data.user_id)
+              localStorage.setItem('isAuth', res.data.isAuth)
+              this.props.history.push('/home')
+            })
+            .catch(err => {
+              console.log(err)
+            })
         })
         .catch(() => {
           console.log('submission error')

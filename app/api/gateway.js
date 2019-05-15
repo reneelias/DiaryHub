@@ -24,4 +24,8 @@ app.all('/workout*', (req, res) => {
   apiProxy.web(req, res, { target: 'http://localhost:6000' })
 })
 
+app.all('/counter*', (req, res) => {
+  apiProxy.web(req, res, { target: 'http://localhost:5000' })
+})
+
 app.listen(4000)

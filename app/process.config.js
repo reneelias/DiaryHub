@@ -25,5 +25,10 @@ module.exports = {
       script: './api/workout.js',
       watch: true,
     },
+    {
+      name: 'counter',
+      script: './api/rediscounter.js',
+      watch: true,
+    },
   ],
 };

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import { Button } from 'semantic-ui-react'
 import styled from 'styled-components'
+import axios from 'axios';
 
 const Container = styled.div`
   background-color: #24292e;
@@ -67,6 +68,14 @@ export default class Landing extends Component {
 
   state = {
     isAuth: localStorage.getItem('isAuth'),
+    counter: '',
+  }
+
+  componentDidMount() {
+    axios.get('/counter/get')
+      .then(res => {
+        this.setState({ counter: res.data })
+      })
   }
 
   render() {
@@ -94,6 +103,7 @@ export default class Landing extends Component {
           <Para>Diary Hub is a website <b>NOT</b> intended for commercial purposes. We do not ask for any type of payment in any shape or form. 
             This website is for educational purposes only and only stimulates a website where users can log their foods and workouts. 
             The information on this website is fictional. Any similarities are completely coincidental.</Para>
+          <Para><b>Registered Users: {this.state.counter}</b></Para>
         </Footer>
       </>
     )
