@@ -175,12 +175,12 @@ class Workouts extends Component {
                       </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                      {user_details.workouts !== undefined && Object.keys(user_details.workouts).map((item) => 
+                      {user_details.workouts !== undefined  && Object.keys(user_details.workouts).map((item) => 
                       <Table.Row key={item}>
                         <Table.Cell>{user_details.workouts[item].exercise_name}</Table.Cell>
                         <Table.Cell>{user_details.workouts[item].sets}</Table.Cell>
                         <Table.Cell>{user_details.workouts[item].reps}</Table.Cell>
-                        <Table.Cell>{user_details.workouts[item].weight}lbs</Table.Cell>
+                        <Table.Cell>{user_details.workouts[item].weight}</Table.Cell>
                       </Table.Row>)
                       }
                     </Table.Body>
