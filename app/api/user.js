@@ -7,8 +7,8 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.set('json spaces', 2)
 
-const url = 'mongodb://localhost:27017'
-// const url = 'mongodb://rene:reneAdmin!@13.52.75.229:27017'
+//const url = 'mongodb://localhost:27017'
+ const url = 'mongodb://rene:reneAdmin!@13.52.75.229:27017'
 
 const dbName = 'diaryhutdb'
 
@@ -43,6 +43,7 @@ client.connect(function(err) {
       proteins: 0,
       recipes: [],
       workouts: [],
+      checkins: [],
     }
     users.insertOne(User)
       .then((result) => {

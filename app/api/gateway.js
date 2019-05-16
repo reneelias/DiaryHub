@@ -9,7 +9,7 @@ apiProxy.on('error', (err, req, res) => {
 })
 
 app.all('/checkin*', (req, res) => {
-  apiProxy.web(req, res, { target: 'http://localhost:10000' })
+  apiProxy.web(req, res, { target: 'http://localhost:2000' })
 })
 app.all('/user*', (req, res) => {
   apiProxy.web(req, res, { target: 'http://localhost:9000' })

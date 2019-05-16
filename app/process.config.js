@@ -30,5 +30,10 @@ module.exports = {
       script: './api/rediscounter.js',
       watch: true,
     },
+    {
+      name: 'checkin',
+      script: './api/checkin.js',
+      watch: true,
+    },
   ],
 };
