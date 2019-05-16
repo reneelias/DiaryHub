@@ -8,6 +8,9 @@ apiProxy.on('error', (err, req, res) => {
   res.status(500).send('Proxy down :(')
 })
 
+app.all('/checkin*', (req, res) => {
+  apiProxy.web(req, res, { target: 'http://localhost:10000' })
+})
 app.all('/user*', (req, res) => {
   apiProxy.web(req, res, { target: 'http://localhost:9000' })
 })

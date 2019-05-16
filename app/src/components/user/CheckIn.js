@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom'
 import styled from 'styled-components';
 import NavBar from '../main/NavBar'
 import { Form, Button } from 'semantic-ui-react';
+import axios from 'axios'
 
 const Container = styled.div`
-  padding: 25px;
-  background-color: white;
-  border: 1px solid grey;
-  border-radius: 10px;
-  width: 500px;
+  max-width: 630px;
   margin: 0 auto;
-  margin-top: 20px;
+  margin-top: 30px;
+  padding: 10px;
 `
 
 const Title = styled.h1`
@@ -24,12 +23,70 @@ const Style = {
 
 class CheckIn extends Component {
 
-  handleSubmit = e => {
-    e.preventDefault()
-    console.log('signup')
+  state ={
+    user_id: localStorage.getItem('user_id'),
+    isAuth: localStorage.getItem('isAuth'),
+    weight: '',
+    chest_width: '',
+    waist_width: '',
+    hip_width: '',
+    mile_time: '',
+    bench_weight: '',
   }
 
+  componentDidMount() {
+    this.getUserDetails()
+  }
+
+  getUserDetails = () => {
+    axios.get(`/checkin/${this.state.user_id}`)
+    .then(res => {
+      this.setState({ user_details: res.data })
+    })
+    .catch(() => {
+      console.log('error getting user details')
+    })
+  }
+
+
+  checkin = e => {
+    e.preventDefault()
+    const { user_id, weight, chest_width, waist_width, hip_width, mile_time, bench_weight } = this.state
+
+    if (weight !== 0 && chest_width !== 0 && waist_width !== 0 & hip_width !== 0) {
+      axios.post('/checkin/add', {
+        user_id,
+        weight,
+        chest_width,
+        waist_width,
+        hip_width,
+        mile_time, //optional
+        bench_weight,
+      })
+        .then(() => {
+          this.getUserDetails()
+          this.setState({
+            weight: '',
+            chest_width: '',
+            waist_width: '',
+            hip_width: '',
+            mile_time: '',
+            bench_weight: '',
+          })
+        })
+        .catch(err => {
+          console.log(err.response.data)
+        })
+  } else {
+      alert('fill out fields')
+  }
+}
+
   render() {
+
+    if (this.state.isAuth !== 'true') {
+      return <Redirect to="/" />
+    }
     return (
       <>
         <NavBar/>
@@ -62,12 +119,11 @@ class CheckIn extends Component {
               <label style={Style}><h4>Bench Press Personal Record</h4></label>
               <input style={Style} placeholder='Enter maximum bench weight'/>
             </Form.Field>
-            <Button type='submit' color='black' size='big'>Record</Button>
+            <p align= "right"><Button type='submit' color='black' size='big'>Record</Button></p>
           </Form>
         </Container>
       </>
     )
   }
 }
-
 export default CheckIn;
