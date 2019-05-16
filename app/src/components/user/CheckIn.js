@@ -144,7 +144,7 @@ changeBenchWeight = e => {
       <>
         <NavBar/>
         <Container>
-        <Header as='h2' color='black' textAlign='center'>CheckIn</Header>
+        <Header as='h2' color='black' textAlign='center'>Check In</Header>
             <Form size='large' onSubmit={this.checkin}>
             <StyledLabel>Weight*</StyledLabel>
               <Form.Input 
@@ -218,16 +218,18 @@ changeBenchWeight = e => {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          <Table.Row>
+        {user_details.checkin !== undefined && Object.keys(user_details.checkins).map((item) => 
+            <Table.Row key={item}>
             <Table.Cell>{user_details.weight}lbs</Table.Cell>
             <Table.Cell>{user_details.chest_width}inches</Table.Cell>
             <Table.Cell>{user_details.waist_width}inches</Table.Cell>
             <Table.Cell>{user_details.hip_width}inches</Table.Cell>
             <Table.Cell>{user_details.mile_time}</Table.Cell>
             <Table.Cell>{user_details.bench_weight}lbs</Table.Cell>
-          </Table.Row>
+          </Table.Row>)
+        }
         </Table.Body>
-      </Table>
+       </Table>
       </Wrapper>
       </>
     )
