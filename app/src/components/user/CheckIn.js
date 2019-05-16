@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom'
 import styled from 'styled-components';
 import NavBar from '../main/NavBar'
-import { Form, Button, Table } from 'semantic-ui-react';
+import { Form, Button, Grid, Table } from 'semantic-ui-react';
 import axios from 'axios'
 
 const Container = styled.div`
@@ -142,11 +142,13 @@ changeBenchWeight = e => {
     }
     return (
       <>
-        <NavBar/>
-        <Container>
-        <Header as='h2' color='black' textAlign='center'>Check In</Header>
-            <Form size='large' onSubmit={this.checkin}>
-            <StyledLabel>Weight*</StyledLabel>
+    <NavBar/>
+      <Container>
+        <Grid>
+          <Grid.Column style={{ width: '630px' }}>
+            <Header as='h2' color='black' textAlign='center'>Check In</Header>
+             <Form size='large' onSubmit={this.checkin}>
+             <StyledLabel>Weight*</StyledLabel>
               <Form.Input 
                 fluid icon='weight' 
                 iconPosition='left' 
@@ -155,7 +157,7 @@ changeBenchWeight = e => {
                 onChange={(e) => {this.changeWeight(e)}}
                 maxLength="3"
               />
-            <StyledLabel>Width Measurement Inches</StyledLabel>
+            <Header as='h2' color='black' textAlign='center'>Width Measurement (inches)</Header>
             <StyledLabel>Chest</StyledLabel>
               <Form.Input 
                 fluid icon='male' 
@@ -202,9 +204,11 @@ changeBenchWeight = e => {
                 maxLength="3"
               />
             <Button color='black' fluid size='large'>Submit</Button>
-          </Form>
-        </Container>
-        <Wrapper>
+            </Form>
+          </Grid.Column>
+        </Grid>
+      </Container>
+      <Wrapper>
       <h1 style={{textAlign: 'center'}}>Check In Summary</h1>
       <Table color='black'>
         <Table.Header>
