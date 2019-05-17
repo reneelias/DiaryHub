@@ -33,7 +33,7 @@ client.connect(function(err) {
     })
   
     app.post('/checkin/add', (req, res) => {
-      const { weight, chest_width, waist_width, hip_width, mile_time, bench_weight } = req.body
+      const { user_id, weight, chest_width, waist_width, hip_width, mile_time, bench_weight } = req.body
       users.updateOne({
         _id: new ObjectId(`${user_id}`)
       }, {

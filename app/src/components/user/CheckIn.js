@@ -222,14 +222,14 @@ changeBenchWeight = e => {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-        {user_details.checkin !== undefined && Object.keys(user_details.checkins).map((item) => 
+        {user_details.checkins !== undefined && Object.keys(user_details.checkins).map((item) => 
             <Table.Row key={item}>
-            <Table.Cell>{user_details.weight}lbs</Table.Cell>
-            <Table.Cell>{user_details.chest_width}inches</Table.Cell>
-            <Table.Cell>{user_details.waist_width}inches</Table.Cell>
-            <Table.Cell>{user_details.hip_width}inches</Table.Cell>
-            <Table.Cell>{user_details.mile_time}</Table.Cell>
-            <Table.Cell>{user_details.bench_weight}lbs</Table.Cell>
+            <Table.Cell>{user_details.checkins[item].weight} lbs</Table.Cell>
+            <Table.Cell>{user_details.checkins[item].chest_width} inches</Table.Cell>
+            <Table.Cell>{user_details.checkins[item].waist_width} inches</Table.Cell>
+            <Table.Cell>{user_details.checkins[item].hip_width} inches</Table.Cell>
+            <Table.Cell>{user_details.checkins[item].mile_time} min</Table.Cell>
+            <Table.Cell>{user_details.checkins[item].bench_weight} lbs</Table.Cell>
           </Table.Row>)
         }
         </Table.Body>
