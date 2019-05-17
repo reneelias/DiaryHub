@@ -56,8 +56,12 @@ export default class Register extends Component {
               console.log(err)
             })
         })
-        .catch(() => {
-          console.log('submission error')
+        .catch(err => {
+          if (err.response.status === 400) {
+            alert('username already exists')
+          } else {
+            alert('submission error')
+          }
         })
     } else {
       alert('no empty fields!')

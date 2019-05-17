@@ -29,14 +29,6 @@ client.connect(function(err) {
       })
   })
 
-  app.get('/user/test', (req, res) => {
-    users.find({username: "jsunga124"}).toArray()
-      .then(docs => {
-        res.send(docs)
-        console.log(docs.length)
-      })
-  })
-
   app.post('/user/register', (req, res) => {
     const User = {
       username: req.body.username.toLowerCase(),
@@ -68,7 +60,7 @@ client.connect(function(err) {
               console.log('inserting data to db error')
             })
         } else {
-          res.send('username already exists')
+          res.sendStatus(400)
         }
       })
       .catch(err => {
