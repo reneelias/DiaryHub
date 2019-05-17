@@ -29,6 +29,14 @@ client.connect(function(err) {
       })
   })
 
+  app.get('/user/test', (req, res) => {
+    users.find({username: "jsunga124"}).toArray()
+      .then(docs => {
+        res.send(docs)
+        console.log(docs.length)
+      })
+  })
+
   app.post('/user/register', (req, res) => {
     const User = {
       username: req.body.username.toLowerCase(),
@@ -45,16 +53,26 @@ client.connect(function(err) {
       workouts: [],
       checkins: [],
     }
-    users.insertOne(User)
-      .then((result) => {
-        res.json({
-          user_id: result.insertedId,
-          isAuth: 'true'
-        })
-        console.log(User)
+    users.find({username: req.body.username.toLowerCase()}).toArray()
+      .then(docs => {
+        if (docs.length === 0) {
+          users.insertOne(User)
+            .then((result) => {
+              res.json({
+                user_id: result.insertedId,
+                isAuth: 'true'
+              })
+              console.log(User)
+            })
+            .catch(() => {
+              console.log('inserting data to db error')
+            })
+        } else {
+          res.send('username already exists')
+        }
       })
-      .catch(() => {
-        console.log('inserting data to db error')
+      .catch(err => {
+        console.log(err)
       })
   })
 
