@@ -1,6 +1,6 @@
 # CSC 667 Final Project
 
-### Due: 15th May 2019
+## DiaryHub
 
 ## Members
 1. Jay Sunga
