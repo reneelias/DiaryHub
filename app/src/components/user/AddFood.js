@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Form, Grid, Header, Segment, Table } from 'semantic-ui-react'
+import { Button, Form, Grid, Header, Segment, Table, Message } from 'semantic-ui-react'
 import { Redirect } from 'react-router-dom'
 import NavBar from '../main/NavBar'
 import styled from 'styled-components'
@@ -24,6 +24,8 @@ const Wrapper = styled.div`
   padding: 10px;
 `
 
+const URL = 'ws://localhost:8080'
+
 class AddFood extends Component {
 
   state ={
@@ -34,10 +36,24 @@ class AddFood extends Component {
     carbs: '',
     proteins: '',
     fats: '',
+    message: '',
   }
+
+  ws = new WebSocket(URL)
 
   componentDidMount() {
     this.getUserDetails()
+    this.ws.onopen = () => {
+      console.log('connected')
+    }
+    this.ws.onclose = () => {
+      console.log('disconnected')
+    }
+    this.ws.onmessage = msg => {
+      this.setState({
+        message: msg.data
+      })
+    }
   }
 
   getUserDetails = () => {
@@ -67,12 +83,14 @@ class AddFood extends Component {
         fats,
       })
         .then(() => {
+          this.ws.send('Successfully Added Food')
           this.getUserDetails()
           this.setState({
             calories: '',
             carbs: '',
             proteins: '',
             fats: '',
+            message: 'Successfully Added Food'
           })
         })
         .catch(err => {
@@ -113,6 +131,18 @@ class AddFood extends Component {
     }
   }
 
+  message = () => {
+    if (this.state.message === '') {
+      return null
+    } else {
+      return (
+        <Message>
+          <Message.Header>{this.state.message}</Message.Header>
+        </Message>
+      )
+    }
+  }
+
   render() {
     const { user_details } = this.state
 
@@ -123,6 +153,7 @@ class AddFood extends Component {
     return (
       <>
       <NavBar />
+      {this.message()}
       <Container>
       <Grid>
         <Grid.Column style={{ width: '630px' }}>

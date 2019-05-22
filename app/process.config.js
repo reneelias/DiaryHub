@@ -35,5 +35,10 @@ module.exports = {
       script: './api/checkin.js',
       watch: true,
     },
+    {
+      name: 'websocket',
+      script: './api/websocket.js',
+      watch: true,
+    },
   ],
 };
