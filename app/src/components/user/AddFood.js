@@ -135,6 +135,7 @@ class AddFood extends Component {
     if (this.state.message === '') {
       return null
     } else {
+      setTimeout(() => this.setState({message:''}), 3000)
       return (
         <Message>
           <Message.Header>{this.state.message}</Message.Header>
