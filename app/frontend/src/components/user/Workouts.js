@@ -6,10 +6,8 @@ import styled from 'styled-components'
 import axios from 'axios'
 
 const Container = styled.div`
-  max-width: 625px;
-  margin: 0 auto;
-  margin-top: 32px;
-  padding: 12px;
+  width: 500px;
+  margin: 50px;
 `
 
 const StyledLabel = styled.label`
