@@ -6,10 +6,10 @@ import styled from 'styled-components'
 import axios from 'axios'
 
 const Container = styled.div`
-  max-width: 630px;
+  max-width: 625px;
   margin: 0 auto;
-  margin-top: 30px;
-  padding: 10px;
+  margin-top: 32px;
+  padding: 12px;
 `
 
 const StyledLabel = styled.label`
@@ -18,10 +18,10 @@ const StyledLabel = styled.label`
 `
 
 const Wrapper = styled.div`
-  max-width: 630px;
+  max-width: 625px;
   margin: 0 auto;
-  margin-top: 30px;
-  padding: 10px;
+  margin-top: 32px;
+  padding: 12px;
 `
 
 
@@ -100,7 +100,7 @@ class Workouts extends Component {
               console.log(err.response.data)
             })
       } else {
-          alert('no empty fields!')
+          alert('non-empty fields')
       }
     }
 
@@ -117,7 +117,7 @@ class Workouts extends Component {
             <Container>
                 <Grid>
                     <Grid.Column style={{ width: '630px' }}>
-                    <Header as='h2' color='black' textAlign='center'>Add Exercise</Header>
+                    <Header as='h2' color='blue' textAlign='center'>ADD WORKOUT!</Header>
                     <Form size='large' onSubmit={this.workouts}>
                     <Segment stacked>
                     <StyledLabel>Exercise Name</StyledLabel>
@@ -157,7 +157,7 @@ class Workouts extends Component {
                         onChange={(e) => {this.changeWeight(e)}}
                     />
                     
-                    <Button color='black' fluid size='large'>Submit</Button>
+                    <Button color='blue' fluid size='large'>SUBMIT</Button>
                     </Segment>
                     </Form>
                     </Grid.Column>
